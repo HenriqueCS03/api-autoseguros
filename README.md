@@ -48,7 +48,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 ---
 ### Fazer login
 
-`GET` /seguroautomotivo/api/cadastro/{id}
+`POST` /seguroautomotivo/api/cadastro/{id}
 
 **Campos da requisição**
 
@@ -61,7 +61,6 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    id: 1,
     email: "rogerio@gmail.com",
     senha: "12345"
 }
