@@ -48,7 +48,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 ---
 ### Fazer login
 
-`POST` /seguroautomotivo/api/login
+`GET` /seguroautomotivo/api/cadastro/{id}
 
 **Campos da requisição**
 
@@ -61,6 +61,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
+    id: 1,
     email: "rogerio@gmail.com",
     senha: "12345"
 }
@@ -72,6 +73,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 |----|---
 | 201 | api recebeu os dados do usuário com sucesso 
 | 400 | campos inválidos
+| 404 | não existe usuário com o id informado
 
 -----
 ## Cotação
@@ -87,8 +89,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 | modelo | texto | sim | informar o modelo do veiculo
 | ano | data | sim | informar a data do modelo do veiculo
 | blindagem | boolean | sim | informar se o carro é ou não blindado
-| CEP | texto | sim | informar onde dorme o carro
-| CPF | texto | sim | informar o cpf de quem ta fazendo o seguro
+| cep | texto | sim | informar onde dorme o carro
+| cpf | texto | sim | informar o cpf de quem ta fazendo o seguro
 | idadeMinima | boolean | sim | informar se há ou não condutores menores de 21 anos
 
 
@@ -101,8 +103,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
     modelo: "Chevrolet Corsa"
     ano: "2000"
     blindagem: false
-    CEP: "06141-050"
-    CPF: "111.444.777-35"
+    cep: "06141-050"
+    cpf: "111.444.777-35"
     idadeMinima: false
 }
 ```
@@ -164,16 +166,16 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
         modelo: "Chevrolet Corsa"
         ano: "2000"
         blindagem: false
-        CEP: "06141-050"
-        CPF: "111.444.777-35"
+        cep: "06141-050"
+        cpf: "111.444.777-35"
         idadeMinima: false
     ],
     plano: [
-        Roubo e furto: true,
-        Eventos naturais: true,
-        Incêndio: false,
-        Colisão simples: false,
-        Colisão severa: false
+        rouboEFurto: true,
+        eventosNaturais: true,
+        incêndio: false,
+        colisãoSimples: false,
+        colisãoSevera: false
     ]
 
 }
