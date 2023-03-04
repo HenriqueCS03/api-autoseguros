@@ -153,7 +153,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
 | dadosVeiculo | objeto | sim | os dados do veiculo
-| plano | objeto | sim | informaçõe do que o plano ira cobrir
+| plano | objeto | sim | informações do que o plano ira cobrir
 
 
 
@@ -175,7 +175,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
         eventosNaturais: true,
         incêndio: false,
         colisãoSimples: false,
-        colisãoSevera: false
+        colisãoSevera: false,
+        valor: 5000
     ]
 
 }
