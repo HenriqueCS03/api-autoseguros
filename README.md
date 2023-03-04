@@ -72,7 +72,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 |----|---
 | 201 | api recebeu os dados do usuário com sucesso 
 | 400 | campos inválidos
-| 404 | não existe usuário com o id informado
+| 404 | não existe usuário informado
 
 -----
 ## Cotação
