@@ -1,6 +1,7 @@
 # Seguro-Automotivo
 
-Uma API para seguro automotivo
+Uma API para seguro automotivo \
+Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?node-id=0%3A1
 
 ## Endpoints
 
