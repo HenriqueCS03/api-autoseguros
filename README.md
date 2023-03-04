@@ -26,7 +26,7 @@ Uma API para seguro automotivo
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
 | email | texto | sim |  o e-mail do usuário
-| ds_senha | texto | sim | a senha do usuário 
+| senha | texto | sim | a senha do usuário 
 
 **Exemplo de corpo de requisição**
 
