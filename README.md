@@ -10,7 +10,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
     - [Fazer login](#fazer-login)
 
 - [Cotação](#cotação)
-    -[Cotar](#cotar)
+    - [Cotar](#cotar)
 
 - [Serviços](#serviços)
     - [listar todos](#listar-todos)
