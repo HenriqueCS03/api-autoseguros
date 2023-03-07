@@ -33,8 +33,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    email: "rogerio@gmail.com",
-    senha: "12345"
+    "email": "rogerio@gmail.com",
+    "senha": "12345"
 }
 ```
 
@@ -61,8 +61,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    email: "rogerio@gmail.com",
-    senha: "12345"
+    "email": "rogerio@gmail.com",
+    "senha": "12345"
 }
 ```
 
@@ -99,12 +99,12 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    modelo: "Chevrolet Corsa"
-    ano: "2000"
-    blindagem: false
-    cep: "06141-050"
-    cpf: "111.444.777-35"
-    idadeMinima: false
+    "modelo": "Chevrolet Corsa",
+    "ano": "2000",
+    "blindagem": false,
+    "cep": "06141-050",
+    "cpf": "111.444.777-35",
+    "idadeMinima": false
 }
 ```
 
@@ -126,7 +126,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    servicos: [
+    "servicos": [
         "Roubo e furto",
         "Eventos naturais",
         "Incêndio",
@@ -161,20 +161,20 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    dadosVeiculo: [
-        modelo: "Chevrolet Corsa"
-        ano: "2000"
-        blindagem: false
-        cep: "06141-050"
-        cpf: "111.444.777-35"
-        idadeMinima: false
+    "dadosVeiculo": [
+        "modelo": "Chevrolet Corsa",
+        "ano": "2000",
+        "blindagem": false,
+        "cep": "06141-050",
+        "cpf": "111.444.777-35",
+        "idadeMinima": false
     ],
-    plano: [
-        rouboEFurto: true,
-        eventosNaturais: true,
-        incêndio: false,
-        colisãoSimples: false,
-        colisãoSevera: false,
+    "plano": [
+        "rouboEFurto": true,
+        "eventosNaturais": true,
+        "incendio": false,
+        "colisaoSimples": false,
+        "colisaoSevera": false,
         valor: 5000
     ]
 
