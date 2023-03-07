@@ -175,7 +175,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
         "incendio": false,
         "colisaoSimples": false,
         "colisaoSevera": false,
-        valor: 5000
+        "valor": 5000
     ]
 
 }
