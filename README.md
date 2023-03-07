@@ -161,14 +161,14 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    "dadosVeiculo": [
+    "dadosVeiculo": {
         "modelo": "Chevrolet Corsa",
         "ano": "2000",
         "blindagem": false,
         "cep": "06141-050",
         "cpf": "111.444.777-35",
         "idadeMinima": false
-    ],
+    },
     "plano": [
         "rouboEFurto": true,
         "eventosNaturais": true,
