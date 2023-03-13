@@ -127,7 +127,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 ```js
 {
     "servicos": [
-        "ROUBO_E_FURTO ",
+        "ROUBO_E_FURTO",
         "EVENTOS_NATURAIS",
         "INCENDIO",
         "COLISAO_SIMPLES",
@@ -170,11 +170,11 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
         "idadeMinima": false
     },
     "plano": [
-        "rouboEFurto": true,
-        "eventosNaturais": true,
-        "incendio": false,
-        "colisaoSimples": false,
-        "colisaoSevera": false,
+        "ROUBO_E_FURTO": true,
+        "EVENTOS_NATURAIS": true,
+        "INCENDIO": false,
+        "COLISAO_SIMPLES": false,
+        "COLISAO_SEVERA": false,
         "valor": 5000
     ]
 
