@@ -2,7 +2,7 @@ package br.com.fiap.seguroautomotivo.models;
 
 public class Plano {
     
-    private Servico servico;
+    private Servicos servico;
 
     private boolean status;
 
@@ -10,17 +10,17 @@ public class Plano {
 
     public Plano(){}
 
-    public Plano(Servico servico, boolean status, double valor) {
+    public Plano(Servicos servico, boolean status, double valor) {
         this.servico = servico;
         this.status = status;
         this.valor = valor;
     }
 
-    public Servico getServico() {
+    public Servicos getServico() {
         return servico;
     }
 
-    public void setServico(Servico servico) {
+    public void setServico(Servicos servico) {
         this.servico = servico;
     }
 
