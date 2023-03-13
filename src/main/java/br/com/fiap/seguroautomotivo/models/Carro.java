@@ -1,26 +1,28 @@
 package br.com.fiap.seguroautomotivo.models;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 public class Carro {
     
     private String modelo;
-    
-    private LocalDate ano;
+
+    private Calendar ano;
+
+    private String usoDoCarro;
 
     private boolean blindagem;
 
-    
-    public Carro() {
-    }
+    private boolean idadeMinima;
 
+    public Carro(){}
     
-    public Carro(String modelo, LocalDate ano, boolean blindagem) {
+    public Carro(String modelo, Calendar ano, String usoDoCarro, boolean blindagem, boolean idadeMinima) {
         this.modelo = modelo;
         this.ano = ano;
+        this.usoDoCarro = usoDoCarro;
         this.blindagem = blindagem;
+        this.idadeMinima = idadeMinima;
     }
-
 
     public String getModelo() {
         return modelo;
@@ -30,12 +32,20 @@ public class Carro {
         this.modelo = modelo;
     }
 
-    public LocalDate getAno() {
+    public Calendar getAno() {
         return ano;
     }
 
-    public void setAno(LocalDate ano) {
+    public void setAno(Calendar ano) {
         this.ano = ano;
+    }
+
+    public String getUsoDoCarro() {
+        return usoDoCarro;
+    }
+
+    public void setUsoDoCarro(String usoDoCarro) {
+        this.usoDoCarro = usoDoCarro;
     }
 
     public boolean isBlindagem() {
@@ -44,6 +54,14 @@ public class Carro {
 
     public void setBlindagem(boolean blindagem) {
         this.blindagem = blindagem;
+    }
+
+    public boolean isIdadeMinima() {
+        return idadeMinima;
+    }
+
+    public void setIdadeMinima(boolean idadeMinima) {
+        this.idadeMinima = idadeMinima;
     }
 
     

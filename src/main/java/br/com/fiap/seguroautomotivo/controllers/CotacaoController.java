@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 //Controle de requisições e acionamento de classes
 public class CotacaoController {
     
-    @GetMapping("/api/cotacao")
+    @GetMapping("/api/cotar")
     public String show(){
         return "cotacao";
     }
