@@ -127,11 +127,11 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 ```js
 {
     "servicos": [
-        "Roubo e furto",
-        "Eventos naturais",
-        "Incêndio",
-        "Colisão simples",
-        "Colisão severa"
+        "ROUBO_E_FURTO ",
+        "EVENTOS_NATURAIS",
+        "INCENDIO",
+        "COLISAO_SIMPLES",
+        "COLISAO_SEVERA"
     ]
 }
 ```
