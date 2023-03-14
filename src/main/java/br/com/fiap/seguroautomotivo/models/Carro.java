@@ -2,8 +2,11 @@ package br.com.fiap.seguroautomotivo.models;
 
 import java.util.Calendar;
 
+
 public class Carro {
     
+    private long id;
+
     private String modelo;
 
     private Calendar ano;
@@ -16,7 +19,8 @@ public class Carro {
 
     public Carro(){}
     
-    public Carro(String modelo, Calendar ano, String usoDoCarro, boolean blindagem, boolean idadeMinima) {
+    public Carro(long id,String modelo, Calendar ano, String usoDoCarro, boolean blindagem, boolean idadeMinima) {
+        this.id = id;
         this.modelo = modelo;
         this.ano = ano;
         this.usoDoCarro = usoDoCarro;
@@ -64,5 +68,12 @@ public class Carro {
         this.idadeMinima = idadeMinima;
     }
 
-    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

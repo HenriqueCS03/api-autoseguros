@@ -4,7 +4,7 @@ public class Plano {
     
     private Servicos servico;
 
-    private boolean status;
+    private  boolean status;
 
     private double valor;
 
