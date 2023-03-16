@@ -114,11 +114,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 {
     "id" : 1,
     "cpf": "12345678987",
-    "modelo": "Chevrolet Corsa",
-    "ano": "2000",
-    "blindagem": false,
-    "cep": "06141-050",
-    "idadeMinima": false
+    "vlr_cotacao": 14000
 }
 ```
 
