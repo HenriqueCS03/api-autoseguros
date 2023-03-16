@@ -26,6 +26,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
+| cpf   | texto | sim | cpf do usuário
 | email | texto | sim |  o e-mail do usuário
 | senha | texto | sim | a senha do usuário 
 
@@ -33,6 +34,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
+    "cpf": "12345678987",
     "email": "rogerio@gmail.com",
     "senha": "12345"
 }
@@ -85,25 +87,37 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
+| id_cotacao | int | sim | id de cotação previamente cadastrado
 | modelo | texto | sim | informar o modelo do veiculo
 | ano | data | sim | informar a data do modelo do veiculo
 | blindagem | boolean | sim | informar se o carro é ou não blindado
 | cep | texto | sim | informar onde dorme o carro
-| cpf | texto | sim | informar o cpf de quem ta fazendo o seguro
 | idadeMinima | boolean | sim | informar se há ou não condutores menores de 21 anos
-
-
 
 
  **Exemplo de corpo de requisição**
 
 ```js
 {
+    "cpf": "12345678987",
     "modelo": "Chevrolet Corsa",
     "ano": "2000",
     "blindagem": false,
     "cep": "06141-050",
-    "cpf": "111.444.777-35",
+    "idadeMinima": false
+}
+```
+
+**Exemplo resposta da requisição**
+
+```js
+{
+    "id" : 1,
+    "cpf": "12345678987",
+    "modelo": "Chevrolet Corsa",
+    "ano": "2000",
+    "blindagem": false,
+    "cep": "06141-050",
     "idadeMinima": false
 }
 ```
@@ -156,7 +170,6 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 
 
-
  **Exemplo de corpo de requisição**
 
 ```js
@@ -170,11 +183,8 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
         "idadeMinima": false
     },
     "plano": [
-        "ROUBO_E_FURTO": true,
-        "EVENTOS_NATURAIS": true,
-        "INCENDIO": false,
-        "COLISAO_SIMPLES": false,
-        "COLISAO_SEVERA": false,
+        "ROUBO_E_FURTO",
+        "EVENTOS_NATURAIS",
         "valor": 5000
     ]
 
