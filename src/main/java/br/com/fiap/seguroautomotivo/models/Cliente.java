@@ -1,21 +1,30 @@
 package br.com.fiap.seguroautomotivo.models;
 
 public class Cliente {
-    private String email;
+    
+    private int id;
 
-    private String senha;
+    private String email;
 
     private String cpf;
 
-    Endereco endereco;
+    private String senha;
 
     public Cliente(){}
 
-    public Cliente(String email, String senha, String cpf, Endereco endereco) {
+    public Cliente(int id, String email, String senha, String cpf) {
+        this.id = id;
         this.email = email;
-        this.senha = senha;
         this.cpf = cpf;
-        this.endereco = endereco;
+        this.senha = senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -42,13 +51,4 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    
 }

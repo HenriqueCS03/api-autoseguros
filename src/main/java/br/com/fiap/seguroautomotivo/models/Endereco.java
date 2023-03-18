@@ -1,20 +1,26 @@
 package br.com.fiap.seguroautomotivo.models;
 
-public class Endereco {
+public class Endereco
+ {
     
     private String cep;
 
-    private String endereco;
+    private String logradouro;
 
     private int numero;
 
     private String complemento;
 
-    public Endereco(){}
+    public Endereco
+    (){}
 
-    public Endereco(String cep, String endereco, int numero, String complemento) {
+    public Endereco
+    (String cep, String logradouro
+    , int numero, String complemento) {
         this.cep = cep;
-        this.endereco = endereco;
+        this.logradouro
+         = logradouro
+        ;
         this.numero = numero;
         this.complemento = complemento;
     }
@@ -27,12 +33,18 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getLogradouro
+    () {
+        return logradouro
+        ;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setLogradouro
+    (String logradouro
+    ) {
+        this.logradouro
+         = logradouro
+        ;
     }
 
     public int getNumero() {

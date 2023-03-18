@@ -5,27 +5,30 @@ import java.util.Calendar;
 
 public class Carro {
     
-    private long id;
+    private int id;
+    
+    private String placa;
 
     private String modelo;
 
     private Calendar ano;
 
-    private String usoDoCarro;
-
-    private boolean blindagem;
-
-    private boolean idadeMinima;
-
+  
     public Carro(){}
     
-    public Carro(long id,String modelo, Calendar ano, String usoDoCarro, boolean blindagem, boolean idadeMinima) {
+    public Carro(int id,String placa,String modelo, Calendar ano) {
         this.id = id;
+        this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
-        this.usoDoCarro = usoDoCarro;
-        this.blindagem = blindagem;
-        this.idadeMinima = idadeMinima;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getModelo() {
@@ -44,36 +47,12 @@ public class Carro {
         this.ano = ano;
     }
 
-    public String getUsoDoCarro() {
-        return usoDoCarro;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setUsoDoCarro(String usoDoCarro) {
-        this.usoDoCarro = usoDoCarro;
-    }
-
-    public boolean isBlindagem() {
-        return blindagem;
-    }
-
-    public void setBlindagem(boolean blindagem) {
-        this.blindagem = blindagem;
-    }
-
-    public boolean isIdadeMinima() {
-        return idadeMinima;
-    }
-
-    public void setIdadeMinima(boolean idadeMinima) {
-        this.idadeMinima = idadeMinima;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
 }

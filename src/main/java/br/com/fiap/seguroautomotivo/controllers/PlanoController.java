@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Cliente;
-import br.com.fiap.seguroautomotivo.models.Plano;
+import br.com.fiap.seguroautomotivo.models.PlanoSeguro;
 
 
 
@@ -19,7 +19,7 @@ public class PlanoController {
     
     
     @GetMapping("/api/plano")
-    public List<Plano> show(){
+    public List<PlanoSeguro> show(){
         return plano.findAll();
     }
 
