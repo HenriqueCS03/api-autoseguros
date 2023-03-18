@@ -85,10 +85,10 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| modelo | texto | sim | informar o modelo do veiculo
-| ano | data | sim | informar a data do modelo do veiculo
+| carro | objeto | sim | informar todos os dados do objeto carro
+| usoDoCarro | texto | sim | informar se o carro é ou não blindado
 | blindagem | boolean | sim | informar se o carro é ou não blindado
-| cep | texto | sim | informar onde dorme o carro
+| endereco | objeto | sim | informar todos os dados do objeto endereco
 | idadeMinima | boolean | sim | informar se há ou não condutores menores de 21 anos
 
 
@@ -96,15 +96,24 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    "cpf": "12345678987",
-    "modelo": "Chevrolet Corsa",
-    "ano": "2000",
+  "cotacao": {
+    "carro": {
+      "placa": "MOV-3961",
+      "modelo": "Honda Civic",
+      "ano": "2017"
+    },
+    "usoDoCarro": "Particular",
     "blindagem": false,
-    "cep": "06141-050",
+    "endereco": {
+      "cep": "06141-050",
+      "logradouro": "Rua Mário Barreto",
+      "numero": 227,
+      "complemento": "Enfrente ao Mercado Baratão"
+    },
     "idadeMinima": false
+  }
 }
 ```
-
 
 **Resposta**
 

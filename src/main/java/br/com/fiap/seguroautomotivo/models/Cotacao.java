@@ -6,16 +6,16 @@ public class Cotacao {
 
     private Carro carro;
 
-    private Endereco endereco;
-
     private String usoDoCarro;
 
     private boolean blindagem;
 
+    private Endereco endereco;
+
     private boolean idadeMinima;
 
-    public Cotacao(int id, Carro carro, Endereco endereco, String usoDoCarro,
-            boolean blindagem, boolean idadeMinima) {
+    public Cotacao(int id, Carro carro,  String usoDoCarro,
+            boolean blindagem, Endereco endereco, boolean idadeMinima) {
         this.id = id;
         this.carro = carro;
         this.endereco = endereco;
