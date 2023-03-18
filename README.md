@@ -129,13 +129,16 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 `GET` /seguroautomotivo/api/lsServicos
 
+| campos | tipos | obrigatório | descrição 
+|-------|-------|-----|-----
+| lista de servicos | lista | sim | informar todos os dados do serviço previamente cadastrado
+
  **Exemplo de corpo de resposta**
 
 ```js
 
 {
   "servicos": {
-    "id_servicos": 1,
     "lista_servicos": [
       {
         "servicoNome": "Roubo e Furto",
@@ -177,9 +180,9 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| cliente | objeto | sim | dados do cliente
-| cotacao | objeto | sim | os dados da cotação
-| servico | objeto | sim | informações do serviços que o plano irá cobrir
+| id_cliente | objeto | sim | dados do cliente previamnete cadastrado
+| id_cotacao | objeto | sim | os dados da cotação previamente cadastrado
+| id_servico | objeto | sim | informações do serviços que o plano irá cobrir previamente cadastrado
 | valorTotal | double | sim | resultado do plano previamente calculado
 
 
