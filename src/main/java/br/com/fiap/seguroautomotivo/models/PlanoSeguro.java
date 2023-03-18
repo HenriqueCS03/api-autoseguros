@@ -66,7 +66,6 @@ public class PlanoSeguro {
     }
 
     private double calcularValorTotal() {
-        this.valorTotal = 0;
         for (Servico servico : servicos) {
             valorTotal += servico.getValor();
         }

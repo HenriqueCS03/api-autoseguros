@@ -26,15 +26,13 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| cpf   | texto | sim | cpf do usuário
-| email | texto | sim |  o e-mail do usuário
+| email/ cpf | texto | sim | cpf ou email do usuário
 | senha | texto | sim | a senha do usuário 
 
 **Exemplo de corpo de requisição**
 
 ```js
 {
-    "cpf": "12345678987",
     "email": "rogerio@gmail.com",
     "senha": "12345"
 }
@@ -56,7 +54,7 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| email | texto | sim | e-mail do usuário que deseja logar app
+| email/ cpf| texto | sim | e-mail ou cpf do usuário que deseja logar app
 | senha | texto | sim | senha do usuário que deseja logar no app
 
 **Exemplo de corpo de requisição**
@@ -87,7 +85,6 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| id_cotacao | int | sim | id de cotação previamente cadastrado
 | modelo | texto | sim | informar o modelo do veiculo
 | ano | data | sim | informar a data do modelo do veiculo
 | blindagem | boolean | sim | informar se o carro é ou não blindado
@@ -108,15 +105,6 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 }
 ```
 
-**Exemplo resposta da requisição**
-
-```js
-{
-    "id" : 1,
-    "cpf": "12345678987",
-    "vlr_cotacao": 14000
-}
-```
 
 **Resposta**
 
@@ -135,14 +123,33 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
  **Exemplo de corpo de resposta**
 
 ```js
+
 {
-    "servicos": {
-        "ROUBO_E_FURTO": 1000,
-        "EVENTOS_NATURAIS":600,
-        "INCENDIO": 800,
-        "COLISAO_SIMPLES": 1000,
-        "COLISAO_SEVERA": 1500
-    }
+  "servicos": {
+    "id_servicos": 1,
+    "lista_servicos": [
+      {
+        "servicoNome": "Roubo e Furto",
+        "valor": 450
+      },
+      {
+        "servicoNome": "Eventos Naturais",
+        "valor": 600
+      },
+      {
+        "servicoNome": "Incêndio",
+        "valor": 800
+      },
+      {
+        "servicoNome": "Colisão(Batida)",
+        "valor": 1000
+      },
+      {
+        "servicoNome": "Colisão(Perda Total)",
+        "valor": 1500
+      }
+    ]
+  }
 }
 ```
 **Resposta**
@@ -161,8 +168,10 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 | campos | tipos | obrigatório | descrição 
 |-------|-------|-----|-----
-| dadosVeiculo | objeto | sim | os dados do veiculo
-| plano | objeto | sim | informações do que o plano ira cobrir
+| cliente | objeto | sim | dados do cliente
+| cotacao | objeto | sim | os dados da cotação
+| servico | objeto | sim | informações do serviços que o plano irá cobrir
+| valorTotal | double | sim | resultado do plano previamente calculado
 
 
 
@@ -170,20 +179,18 @@ Link do figma: https://www.figma.com/file/DYSewiaigWu9uOcFgouMfL/AutoSeguros?nod
 
 ```js
 {
-    "dadosVeiculo": {
-        "modelo": "Chevrolet Corsa",
-        "ano": "2000",
-        "blindagem": false,
-        "cep": "06141-050",
-        "cpf": "111.444.777-35",
-        "idadeMinima": false
+    "planoSeguro": {
+    "cliente": {
+        "id_cliente": 1
     },
-    "plano": [
-        "ROUBO_E_FURTO",
-        "EVENTOS_NATURAIS",
-        "valor": 5000
-    ]
-
+    "cotacao": {
+        "id_cotacao": 1
+    },
+    "servicos": {
+        "id_servico": 1
+    },
+    "valorTotal": 3850.0
+    }
 }
 ```
 
