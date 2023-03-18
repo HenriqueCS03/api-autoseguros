@@ -3,23 +3,23 @@ package br.com.fiap.seguroautomotivo.models;
 
 public class Servico {
     
-    private int id;
+    private long id;
 
     private String servicosNome;
     
     private double valor;
 
-    public Servico(int id, String servicosNome, int valor) {
+    public Servico(long id, String servicosNome, int valor) {
         this.id = id;
         this.servicosNome = servicosNome;
         this.valor = valor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

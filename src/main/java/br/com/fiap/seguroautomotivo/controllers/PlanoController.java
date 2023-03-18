@@ -1,14 +1,15 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.seguroautomotivo.models.Cliente;
 import br.com.fiap.seguroautomotivo.models.PlanoSeguro;
 
 
@@ -17,16 +18,18 @@ import br.com.fiap.seguroautomotivo.models.PlanoSeguro;
 //Controle de requisições e acionamento de classes
 public class PlanoController {
     
+    List<PlanoSeguro> planoSeguros = new ArrayList<>();
     
     @GetMapping("/api/plano")
-    public List<PlanoSeguro> show(){
-        return plano.findAll();
+    public List<PlanoSeguro> todosOsPlanos(){
+        return planoSeguros;
     }
 
     @PostMapping("/api/plano")
-    public void create(){
-        
+    public ResponseEntity<PlanoSeguro> criandoPlano(PlanoSeguro plano){
+        planoSeguros.add(plano);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    
 }
