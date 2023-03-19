@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class Carro {
     
-    private long id;
+    private Long id;
     
     private String placa;
 
@@ -16,18 +16,18 @@ public class Carro {
   
     public Carro(){}
     
-    public Carro(long id,String placa,String modelo, Calendar ano) {
+    public Carro(Long id,String placa,String modelo, Calendar ano) {
         this.id = id;
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

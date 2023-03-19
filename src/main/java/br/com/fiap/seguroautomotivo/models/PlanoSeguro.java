@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PlanoSeguro {
     
-    private long id;
+    private Long id;
 
     private Cotacao cotacao;
 
@@ -15,7 +15,7 @@ public class PlanoSeguro {
     private double valorTotal;
 
     
-    public PlanoSeguro(long id, Cotacao cotacao, List<Servico> servicos ,boolean status) {
+    public PlanoSeguro(Long id, Cotacao cotacao, List<Servico> servicos ,boolean status) {
         this.id = id;
         this.cotacao = cotacao;
         //Adicionando servicos
@@ -25,11 +25,11 @@ public class PlanoSeguro {
         calcularValorTotal();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,7 +3,7 @@ package br.com.fiap.seguroautomotivo.models;
 public class Endereco
  {
     
-    private long id;
+    private Long id;
 
     private String cep;
 
@@ -17,7 +17,7 @@ public class Endereco
     (){}
 
     public Endereco
-    (long id,String cep, String logradouro
+    (Long id,String cep, String logradouro
     , int numero, String complemento) {
         this.id = id;
         this.cep = cep;
@@ -28,11 +28,11 @@ public class Endereco
         this.complemento = complemento;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

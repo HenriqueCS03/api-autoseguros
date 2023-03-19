@@ -2,7 +2,7 @@ package br.com.fiap.seguroautomotivo.models;
 
 public class Cliente {
     
-    private long id;
+    private Long id;
 
     private String email;
 
@@ -12,18 +12,18 @@ public class Cliente {
 
     public Cliente(){}
 
-    public Cliente(long id, String email, String senha, String cpf) {
+    public Cliente(Long id, String email, String senha, String cpf) {
         this.id = id;
         this.email = email;
         this.cpf = cpf;
         this.senha = senha;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

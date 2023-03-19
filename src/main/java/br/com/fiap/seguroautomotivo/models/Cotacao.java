@@ -2,7 +2,7 @@ package br.com.fiap.seguroautomotivo.models;
 
 public class Cotacao {
     
-    private long id;
+    private Long id;
 
     private Carro carro;
 
@@ -14,7 +14,7 @@ public class Cotacao {
 
     private boolean idadeMinima;
 
-    public Cotacao(long id, Carro carro,  String usoDoCarro,
+    public Cotacao(Long id, Carro carro,  String usoDoCarro,
             boolean blindagem, Endereco endereco, boolean idadeMinima) {
         this.id = id;
         this.carro = carro;
@@ -24,11 +24,11 @@ public class Cotacao {
         this.idadeMinima = idadeMinima;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
