@@ -34,7 +34,7 @@ public class CarroController {
     }
 
 
-    @PutMapping("/api/carrosCliente")
+    @PutMapping("/api/carroCliente")
     public ResponseEntity<Carro> atualizar(@RequestBody Carro carro) {
 
         var carroEncontrado = listCarros.stream().filter(c -> c.getId().equals(carro.getId())).findFirst();
@@ -48,7 +48,7 @@ public class CarroController {
         return ResponseEntity.ok().body(carro);
     }
 
-    @DeleteMapping("/api/carrosCliente/{id}")
+    @DeleteMapping("/api/carroCliente/{id}")
     public ResponseEntity<Carro> remover(@PathVariable Long id) {
         
        var carroEncontrado = listCarros.stream().filter(c -> c.getId().equals(id)).findFirst();
