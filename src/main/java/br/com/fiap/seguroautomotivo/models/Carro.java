@@ -1,11 +1,12 @@
 package br.com.fiap.seguroautomotivo.models;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 
 @Entity
 public class Carro {
@@ -18,12 +19,12 @@ public class Carro {
 
     private String modelo;
 
-    private Calendar ano;
+    private LocalDate ano;
 
   
     public Carro(){}
     
-    public Carro(Long id,String placa,String modelo, Calendar ano) {
+    public Carro(Long id, String placa, String modelo, LocalDate ano) {
         this.id = id;
         this.placa = placa;
         this.modelo = modelo;
@@ -38,6 +39,14 @@ public class Carro {
         this.id = id;
     }
 
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -46,20 +55,12 @@ public class Carro {
         this.modelo = modelo;
     }
 
-    public Calendar getAno() {
+    public LocalDate getAno() {
         return ano;
     }
 
-    public void setAno(Calendar ano) {
+    public void setAno(LocalDate ano) {
         this.ano = ano;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
     }
 
 }

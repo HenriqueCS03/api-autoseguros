@@ -35,7 +35,7 @@ public class CarroController {
          return ResponseEntity.status(HttpStatus.CREATED).body(carro);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Carro> encontraCarroPorId(@PathVariable Long id){
         
         var carroEncontrado = carroRepository.findById(id);
