@@ -1,8 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,49 +11,64 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Cotacao;
+import br.com.fiap.seguroautomotivo.repository.CotacaoRepository;
 
+@RestController
+@RequestMapping("/api/cotar")
 public class CotacaoController {
     
-    List<Cotacao> cotacoes = new ArrayList<>();
+    @Autowired
+    CotacaoRepository cotacaoRepository;
 
-    @GetMapping("/api/cotar")
-    public ResponseEntity<List<Cotacao>> todosOsCarros() {
-        return cotacoes.isEmpty()
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(cotacoes);
+    @GetMapping
+    public List<Cotacao> todosAsCotacoes() {
+        return cotacaoRepository.findAll();
     }
 
-    @PostMapping("/api/cotar")
-    public ResponseEntity<Cotacao> cadastrar(@RequestBody Cotacao cotacao){
-        cotacoes.add(cotacao);
+    @PostMapping
+    public ResponseEntity<Cotacao> cadastrarCotacao(@RequestBody Cotacao cotacao){
+        cotacaoRepository.save(cotacao);
          return ResponseEntity.status(HttpStatus.CREATED).body(cotacao);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Cotacao> encontraCotacaoPorId(@PathVariable Long id){
+        
+        var cotacaoEncontrado = cotacaoRepository.findById(id);
 
-    @PutMapping("/api/cotar")
-    public ResponseEntity<Cotacao> atualizar(@RequestBody Cotacao cotacao) {
+        if (cotacaoEncontrado.isEmpty())
+            return ResponseEntity.notFound().build();
 
-        var cotacaoEncontrado = cotacoes.stream().filter(c -> c.getId().equals(cotacao.getId())).findFirst();
-
-        if (cotacaoEncontrado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        cotacoes.remove(cotacaoEncontrado.get());
-        cotacoes.add(cotacao);
-
-        return ResponseEntity.ok().body(cotacao);
+        return ResponseEntity.ok(cotacaoEncontrado.get());
     }
 
-    @DeleteMapping("/api/cotar/{id}")
-    public ResponseEntity<Cotacao> remover(@PathVariable Long id) {
-        
-       var cotacaoEncontrado = cotacoes.stream().filter(c -> c.getId().equals(id)).findFirst();
-        if(cotacaoEncontrado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cotacao> atualizarCotacao(@PathVariable Long id, @RequestBody Cotacao cotacao) {
+
+        var cotacaoEncontrado = cotacaoRepository.findById(id);
+
+        if (cotacaoEncontrado.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        cotacoes.remove(cotacaoEncontrado.get());
+        cotacao.setId(id);
+        cotacaoRepository.save(cotacao);
+
+        return ResponseEntity.ok(cotacao);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cotacao> removerCotacao(@PathVariable Long id) {
+        
+       var cotacaoEncontrado = cotacaoRepository.findById(id);
+        if(cotacaoEncontrado.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        cotacaoRepository.delete(cotacaoEncontrado.get());
 
         return ResponseEntity.noContent().build();
     }

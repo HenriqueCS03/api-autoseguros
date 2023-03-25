@@ -1,8 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,49 +11,65 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Endereco;
+import br.com.fiap.seguroautomotivo.repository.EnderecoRepository;
 
+@RestController
+@RequestMapping("/api/endereco")
 public class EnderecoController {
     
-    List<Endereco> enderecos = new ArrayList<>();
+    @Autowired
+    EnderecoRepository enderecoRepository;
 
-    @GetMapping("/api/endereco")
-    public ResponseEntity<List<Endereco>> listarOsEnderecos(){
-        return enderecos.isEmpty() 
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(enderecos);
+    @GetMapping
+    public List<Endereco> listarOsEnderecos(){
+        return enderecoRepository.findAll();
     }
 
-    @PostMapping("/api/endereco")
-    public ResponseEntity<Endereco> cadastrar(@RequestBody Endereco endereco){
-        enderecos.add(endereco);
+    @PostMapping
+    public ResponseEntity<Endereco> cadastrarEndereco(@RequestBody Endereco endereco){
+        enderecoRepository.save(endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(endereco);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Endereco> encontraEnderecoPorId(@PathVariable Long id){
+        
+        var enderecoEncontrado = enderecoRepository.findById(id);
 
-    @PutMapping("/api/endereco")
-    public ResponseEntity<Endereco> atualizar(@RequestBody Endereco endereco) {
+        if (enderecoEncontrado.isEmpty())
+            return ResponseEntity.notFound().build();
 
-        var enderecoEncontrado = enderecos.stream().filter(e -> e.getId().equals(endereco.getId())).findFirst();
-
-        if (enderecoEncontrado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        enderecos.remove(enderecoEncontrado.get());
-        enderecos.add(endereco);
-
-        return ResponseEntity.ok().body(endereco);
+        return ResponseEntity.ok(enderecoEncontrado.get());
     }
 
-    @DeleteMapping("/api/endereco/{id}")
-    public ResponseEntity<Endereco> remover(@PathVariable Long id) {
-        
-       var enderecoEncontrado = enderecos.stream().filter(e -> e.getId().equals(id)).findFirst();
-        if(enderecoEncontrado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Endereco> atualizarEndereco(@PathVariable Long id, @RequestBody Endereco endereco) {
+
+        var enderecoEncontrado = enderecoRepository.findById(id);
+
+        if (enderecoEncontrado.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        enderecos.remove(enderecoEncontrado.get());
+        endereco.setId(id);
+        enderecoRepository.save(endereco);
+
+        return ResponseEntity.ok(endereco);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Endereco> removerEndereco(@PathVariable Long id) {
+        
+       var enderecoEncontrado = enderecoRepository.findById(id);
+        
+        if(enderecoEncontrado.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        enderecoRepository.delete(enderecoEncontrado.get());
 
         return ResponseEntity.noContent().build();
     }

@@ -1,8 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,51 +11,67 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Carro;
+import br.com.fiap.seguroautomotivo.repository.CarroRepository;
 
 @RestController
+@RequestMapping("/api/carroCliente")
 public class CarroController {
     
-    List<Carro> listCarros = new ArrayList<>();
+    @Autowired
+    CarroRepository carroRepository;
 
-    @GetMapping("/api/carroCliente")
-    public ResponseEntity<List<Carro>> todosOsCarros() {
-        return listCarros.isEmpty()
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(listCarros);
+    @GetMapping
+    public List<Carro> todosOsCarros() {
+        return carroRepository.findAll(); 
     }
 
-    @PostMapping("/api/carroCliente")
-    public ResponseEntity<Carro> cadastrar(@RequestBody Carro carro){
-         listCarros.add(carro);
+    @PostMapping
+    public ResponseEntity<Carro> cadastrarCarro(@RequestBody Carro carro){
+        carroRepository.save(carro);
          return ResponseEntity.status(HttpStatus.CREATED).body(carro);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Carro> encontraCarroPorId(@PathVariable Long id){
+        
+        var carroEncontrado = carroRepository.findById(id);
 
-    @PutMapping("/api/carroCliente")
-    public ResponseEntity<Carro> atualizar(@RequestBody Carro carro) {
+        if (carroEncontrado.isEmpty())
+            return ResponseEntity.notFound().build();
 
-        var carroEncontrado = listCarros.stream().filter(c -> c.getId().equals(carro.getId())).findFirst();
-
-        if (carroEncontrado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        listCarros.remove(carroEncontrado.get());
-        listCarros.add(carro);
-
-        return ResponseEntity.ok().body(carro);
+        return ResponseEntity.ok(carroEncontrado.get());
     }
 
-    @DeleteMapping("/api/carroCliente/{id}")
-    public ResponseEntity<Carro> remover(@PathVariable Long id) {
-        
-       var carroEncontrado = listCarros.stream().filter(c -> c.getId().equals(id)).findFirst();
-        if(carroEncontrado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Carro> atualizarCarro(@PathVariable Long id, @RequestBody Carro carro) {
+
+        var carroEncontrado = carroRepository.findById(id);
+
+        if (carroEncontrado.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        listCarros.remove(carroEncontrado.get());
+
+        carro.setId(id);
+        carroRepository.save(carro);
+        
+
+        return ResponseEntity.ok(carro);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Carro> removerCarro(@PathVariable Long id) {
+        
+       var carroEncontrado = carroRepository.findById(id);
+        
+       if(carroEncontrado.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        carroRepository.delete(carroEncontrado.get());
 
         return ResponseEntity.noContent().build();
     }

@@ -1,7 +1,15 @@
 package br.com.fiap.seguroautomotivo.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Cliente {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -10,7 +18,7 @@ public class Cliente {
 
     private String senha;
 
-    public Cliente(){}
+    protected Cliente(){}
 
     public Cliente(Long id, String email, String senha, String cpf) {
         this.id = id;

@@ -1,8 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,59 +11,73 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import br.com.fiap.seguroautomotivo.models.Cliente;
+import br.com.fiap.seguroautomotivo.repository.ClienteRepository;
 
 @RestController
+@RequestMapping("api/cadastro")
 public class ClienteController {
     
-    List<Cliente> listCliente = new ArrayList<>();
+    @Autowired
+    ClienteRepository clienteRepository;
 
-    @GetMapping("/api/cadastro")
-    public ResponseEntity<List<Cliente>> show() {
-        return listCliente.isEmpty()
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(listCliente);
+    @GetMapping()
+    public List<Cliente> visualizarCadastrosCliente() {
+       return clienteRepository.findAll();
     }
 
-    @PostMapping("/api/cadastro")
-    public ResponseEntity<Cliente> cadastrar(@RequestBody Cliente cliente){
-         listCliente.add(cliente);
+    @PostMapping()
+    public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente){
+         clienteRepository.save(cliente);
          return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
-    @PostMapping("/api/login")
-    public ResponseEntity<Boolean> verifica(@RequestBody Cliente cliente){
-        var clienteEncontrado = listCliente.contains(cliente);
-        if(!clienteEncontrado){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(clienteEncontrado);
+    // @PostMapping("/login")
+    // public ResponseEntity<Boolean> verifica(@RequestBody Cliente cliente){
+    //     Cliente clienteEncontrado = clienteRepository.findAll(cliente);
+    //     if(!clienteEncontrado){
+    //         return ResponseEntity.notFound().build();
+    //     }
+    //     return ResponseEntity.ok(clienteEncontrado);
+    // }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> encontraClientePorId(@PathVariable Long id){
+        
+        var clienteEncontrado = clienteRepository.findById(id);
+
+        if (clienteEncontrado.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(clienteEncontrado.get());
     }
 
-    @PutMapping("/api/cadastro")
-    public ResponseEntity<Cliente> update(@RequestBody Cliente cliente) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizaCadastro(@PathVariable Long id, @RequestBody Cliente cliente) {
 
-        var clientesncontrado = listCliente.stream().filter(cl -> cl.getId().equals(cliente.getId())).findFirst();
+        var clientesncontrado = clienteRepository.findById(id);
 
         if (clientesncontrado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
-        listCliente.remove(clientesncontrado.get());
-        listCliente.add(cliente);
+        cliente.setId(id);
+        clienteRepository.save(cliente);
 
-        return ResponseEntity.ok().body(cliente);
+        return ResponseEntity.ok(cliente);
     }
 
-    @DeleteMapping("/api/cadastro/{id}")
-    public ResponseEntity<Cliente> remover(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Cliente> removerCadastro(@PathVariable Long id) {
         
-       var clienteEncontrado = listCliente.stream().filter(cl -> cl.getId().equals(id)).findFirst();
+       var clienteEncontrado = clienteRepository.findById(id);
         if(clienteEncontrado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
-        listCliente.remove(clienteEncontrado.get());
+        clienteRepository.delete(clienteEncontrado.get());
 
         return ResponseEntity.noContent().build();
     }

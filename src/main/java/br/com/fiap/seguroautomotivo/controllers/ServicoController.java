@@ -1,8 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,49 +11,65 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Servico;
+import br.com.fiap.seguroautomotivo.repository.ServicoRepository;
 
+@RestController
+@RequestMapping("/api/Servico")
 public class ServicoController {
     
-    private List<Servico> listServico = new ArrayList<>();
+    @Autowired
+    ServicoRepository servicoRepository;
 
-    @GetMapping("/api/isServico")
-    public ResponseEntity<List<Servico>> todosOsServicos() {
-        return listServico.isEmpty()
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(listServico);
+    @GetMapping
+    public List<Servico> todosOsServicos() {
+        return servicoRepository.findAll();
     }
 
-    @PostMapping("/api/isServico")
-    public ResponseEntity<Servico> cadastrar(@RequestBody Servico servico){
-        listServico.add(servico);
+    @PostMapping
+    public ResponseEntity<Servico> cadastrarServico(@RequestBody Servico servico){
+        servicoRepository.save(servico);
          return ResponseEntity.status(HttpStatus.CREATED).body(servico);
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Servico> encontraServicoPorId(@PathVariable Long id){
+        
+        var servicoEncontrado = servicoRepository.findById(id);
 
+        if (servicoEncontrado.isEmpty())
+            return ResponseEntity.notFound().build();
 
-    @PutMapping("/api/isServico")
-    public ResponseEntity<Servico> atualizar(@RequestBody Servico servico) {
-
-        var servicoEncontrado = listServico.stream().filter(s -> s.getId().equals(servico.getId())).findFirst();
-
-        if (servicoEncontrado.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        listServico.remove(servicoEncontrado.get());
-        listServico.add(servico);
-
-        return ResponseEntity.ok().body(servico);
+        return ResponseEntity.ok(servicoEncontrado.get());
     }
 
-    @DeleteMapping("/api/isServico/{id}")
-    public ResponseEntity<Servico> remover(@PathVariable Long id) {
-        
-       var servicoEncontrado = listServico.stream().filter(s -> s.getId().equals(id)).findFirst();
-        if(servicoEncontrado.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Servico> atualizarServico(@PathVariable Long id ,@RequestBody Servico servico) {
+
+        var servicoEncontrado = servicoRepository.findById(id);
+
+        if (servicoEncontrado.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-        listServico.remove(servicoEncontrado.get());
+        servico.setId(id);
+        servicoRepository.save(servico);
+
+        return ResponseEntity.ok(servico);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Servico> removerServico(@PathVariable Long id) {
+        
+       var servicoEncontrado = servicoRepository.findById(id);
+        
+       if(servicoEncontrado.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+       
+        servicoRepository.delete(servicoEncontrado.get());
 
         return ResponseEntity.noContent().build();
     }
