@@ -2,10 +2,15 @@ package br.com.fiap.seguroautomotivo.models;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.NotFound;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 
 @Entity
@@ -15,10 +20,14 @@ public class Carro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank(message = "A placa tem que ser preenchido.")
+    @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A placa deve estar no formato AAA-1234")
     private String placa;
 
+    @NotBlank(message = "O modelo tem que ser preenchido.")
     private String modelo;
 
+    @NotNull(message = "A data não pode ser nula")
     private LocalDate ano;
 
   

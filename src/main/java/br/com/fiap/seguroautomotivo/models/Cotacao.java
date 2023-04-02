@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cotacao {
@@ -12,12 +15,18 @@ public class Cotacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "O carro não pode ser nulo")
+    @Valid
     private Carro carro;
 
+
+    @NotBlank(message = "O uso tem que ser preenchido.")
     private String usoDoCarro;
 
     private boolean blindagem;
 
+    @NotNull(message = "O endereço não pode ser nulo")
+    @Valid
     private Endereco endereco;
 
     private boolean idadeMinima;

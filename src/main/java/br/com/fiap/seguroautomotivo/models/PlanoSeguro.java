@@ -6,6 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class PlanoSeguro {
@@ -14,12 +18,18 @@ public class PlanoSeguro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "A cotação não pode ser nula.")
+    @Valid
     private Cotacao cotacao;
 
+    @NotNull(message = "A lista de serviços não pode ser nula.")
+    @Size(min = 1, message = "A lista de serviços deve conter pelo menos um serviço.")
     private List<Servico> servicos;
 
     private boolean status;
 
+    @Min(value = 0, )
+    @NotNull(message = "O valor total não pode ser nulo.")
     private double valorTotal;
 
     

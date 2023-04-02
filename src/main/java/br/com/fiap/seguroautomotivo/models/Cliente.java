@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Cliente {
@@ -12,10 +15,14 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Email
     private String email;
 
+    @NotBlank(message = "O CPF tem que ser preenchido.")
+    @Pattern(regexp = "[0-9]{11}", message = "O CPF deve conter apenas números e ter 11 dígitos")
     private String cpf;
 
+    @NotBlank(message = "A senha tem que ser preenchida.")
     private String senha;
 
     protected Cliente(){}
