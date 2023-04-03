@@ -28,7 +28,7 @@ public class PlanoSeguro {
 
     private boolean status;
 
-    @Min(value = 0, )
+    @Min(value = 0)
     @NotNull(message = "O valor total não pode ser nulo.")
     private double valorTotal;
 

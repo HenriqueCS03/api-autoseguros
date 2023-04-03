@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Endereco;
 import br.com.fiap.seguroautomotivo.repository.EnderecoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/endereco")
@@ -30,7 +31,7 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<Endereco> cadastrarEndereco(@RequestBody Endereco endereco){
+    public ResponseEntity<Endereco> cadastrarEndereco(@Valid @RequestBody Endereco endereco){
         enderecoRepository.save(endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(endereco);
     }
@@ -47,7 +48,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Endereco> atualizarEndereco(@PathVariable Long id, @RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> atualizarEndereco(@Valid @PathVariable Long id, @RequestBody Endereco endereco) {
 
         var enderecoEncontrado = enderecoRepository.findById(id);
 

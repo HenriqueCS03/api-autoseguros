@@ -48,7 +48,7 @@ public class CotacaoController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cotacao> atualizarCotacao(@PathVariable Long id, @RequestBody Cotacao cotacao) {
+    public ResponseEntity<Cotacao> atualizarCotacao(@Valid @PathVariable Long id, @RequestBody Cotacao cotacao) {
 
         var cotacaoEncontrado = cotacaoRepository.findById(id);
 

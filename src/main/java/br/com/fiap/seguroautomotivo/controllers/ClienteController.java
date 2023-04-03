@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Cliente;
 import br.com.fiap.seguroautomotivo.repository.ClienteRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/cadastro")
@@ -31,7 +32,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> cadastrarCliente(@Valid @RequestBody Cliente cliente){
          clienteRepository.save(cliente);
          return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
@@ -57,7 +58,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizaCadastro(@PathVariable Long id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizaCadastro(@Valid @PathVariable Long id, @RequestBody Cliente cliente) {
 
         var clientesncontrado = clienteRepository.findById(id);
 

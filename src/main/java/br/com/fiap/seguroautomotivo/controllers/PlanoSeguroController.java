@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.PlanoSeguro;
 import br.com.fiap.seguroautomotivo.repository.PlanoSeguroRepository;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -32,7 +33,7 @@ public class PlanoSeguroController {
     }
 
     @PostMapping
-    public ResponseEntity<PlanoSeguro> cadastrarPlano(@RequestBody PlanoSeguro planoSeguro){
+    public ResponseEntity<PlanoSeguro> cadastrarPlano(@Valid @RequestBody PlanoSeguro planoSeguro){
         planoSeguroRepository.save(planoSeguro);
          return ResponseEntity.status(HttpStatus.CREATED).body(planoSeguro);
     }
@@ -50,7 +51,7 @@ public class PlanoSeguroController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanoSeguro> atualizarPlano(@PathVariable Long id, @RequestBody PlanoSeguro planoSeguro) {
+    public ResponseEntity<PlanoSeguro> atualizarPlano(@Valid @PathVariable Long id, @RequestBody PlanoSeguro planoSeguro) {
 
         var planoEncontrado = planoSeguroRepository.findById(id);
 

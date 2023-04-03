@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Servico;
 import br.com.fiap.seguroautomotivo.repository.ServicoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/Servico")
@@ -30,7 +31,7 @@ public class ServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Servico> cadastrarServico(@RequestBody Servico servico){
+    public ResponseEntity<Servico> cadastrarServico(@Valid @RequestBody Servico servico){
         servicoRepository.save(servico);
          return ResponseEntity.status(HttpStatus.CREATED).body(servico);
     }
@@ -47,7 +48,7 @@ public class ServicoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Servico> atualizarServico(@PathVariable Long id ,@RequestBody Servico servico) {
+    public ResponseEntity<Servico> atualizarServico(@Valid @PathVariable Long id ,@RequestBody Servico servico) {
 
         var servicoEncontrado = servicoRepository.findById(id);
 

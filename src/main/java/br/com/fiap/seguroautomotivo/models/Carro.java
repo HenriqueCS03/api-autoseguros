@@ -2,12 +2,13 @@ package br.com.fiap.seguroautomotivo.models;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.NotFound;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -28,6 +29,7 @@ public class Carro {
     private String modelo;
 
     @NotNull(message = "A data não pode ser nula")
+    @Temporal(TemporalType.DATE)
     private LocalDate ano;
 
   

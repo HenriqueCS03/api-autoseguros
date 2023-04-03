@@ -1,6 +1,5 @@
 package br.com.fiap.seguroautomotivo.models;
 
-import org.hibernate.annotations.NotFound;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

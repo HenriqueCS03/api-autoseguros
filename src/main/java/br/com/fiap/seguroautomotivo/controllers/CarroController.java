@@ -3,7 +3,6 @@ package br.com.fiap.seguroautomotivo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Carro;
-import br.com.fiap.seguroautomotivo.models.RestValidationError;
 import br.com.fiap.seguroautomotivo.repository.CarroRepository;
 import jakarta.validation.Valid;
 
@@ -54,7 +52,7 @@ public class CarroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Carro> atualizarCarro(@PathVariable Long id, @RequestBody Carro carro) {
+    public ResponseEntity<Carro> atualizarCarro(@Valid @PathVariable Long id, @RequestBody Carro carro) {
 
         var carroEncontrado = carroRepository.findById(id);
 
