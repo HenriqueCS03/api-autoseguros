@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.seguroautomotivo.models.Cotacao;
 import br.com.fiap.seguroautomotivo.repository.CotacaoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/cotar")
@@ -30,7 +31,7 @@ public class CotacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Cotacao> cadastrarCotacao(@RequestBody Cotacao cotacao){
+    public ResponseEntity<Cotacao> cadastrarCotacao(@Valid @RequestBody Cotacao cotacao){
         cotacaoRepository.save(cotacao);
          return ResponseEntity.status(HttpStatus.CREATED).body(cotacao);
     }
