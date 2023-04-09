@@ -8,9 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.fiap.seguroautomotivo.models.Carro;
-import br.com.fiap.seguroautomotivo.models.PlanoSeguro;
 import br.com.fiap.seguroautomotivo.repository.CarroRepository;
-import br.com.fiap.seguroautomotivo.repository.PlanoSeguroRepository;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner{
@@ -25,4 +23,5 @@ public class DatabaseSeeder implements CommandLineRunner{
             new Carro("DEF-5678", "Volkswagen Jetta",LocalDate.parse("2022-01-01"))
         ));
     
+    }
 }
