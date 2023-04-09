@@ -8,8 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Servico {
     
     @Id
@@ -23,34 +31,4 @@ public class Servico {
     @NotNull(message = "O valor do serviço não pode ser nulo.")
     private double valor;
 
-    public Servico(Long id, String servicosNome, int valor) {
-        this.id = id;
-        this.servicosNome = servicosNome;
-        this.valor = valor;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId( Long id) {
-        this.id = id;
-    }
-
-    public String getServicosNome() {
-        return servicosNome;
-    }
-
-    public void setServicosNome(String servicosNome) {
-        this.servicosNome = servicosNome;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
-    
 }

@@ -4,11 +4,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Cotacao {
     
     @Id
@@ -17,6 +27,7 @@ public class Cotacao {
 
     @NotNull(message = "O carro não pode ser nulo")
     @Valid
+    @ManyToOne
     private Carro carro;
 
 
@@ -27,67 +38,9 @@ public class Cotacao {
 
     @NotNull(message = "O endereço não pode ser nulo")
     @Valid
+    @OneToOne
     private Endereco endereco;
 
     private boolean idadeMinima;
-
-    public Cotacao(Long id, Carro carro,  String usoDoCarro,
-            boolean blindagem, Endereco endereco, boolean idadeMinima) {
-        this.id = id;
-        this.carro = carro;
-        this.endereco = endereco;
-        this.usoDoCarro = usoDoCarro;
-        this.blindagem = blindagem;
-        this.idadeMinima = idadeMinima;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getUsoDoCarro() {
-        return usoDoCarro;
-    }
-
-    public void setUsoDoCarro(String usoDoCarro) {
-        this.usoDoCarro = usoDoCarro;
-    }
-
-    public boolean isBlindagem() {
-        return blindagem;
-    }
-
-    public void setBlindagem(boolean blindagem) {
-        this.blindagem = blindagem;
-    }
-
-    public boolean isIdadeMinima() {
-        return idadeMinima;
-    }
-
-    public void setIdadeMinima(boolean idadeMinima) {
-        this.idadeMinima = idadeMinima;
-    }
-
-    
+     
 }

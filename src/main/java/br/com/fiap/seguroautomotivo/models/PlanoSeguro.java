@@ -6,12 +6,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class PlanoSeguro {
     
     @Id
@@ -20,10 +28,12 @@ public class PlanoSeguro {
 
     @NotNull(message = "A cotação não pode ser nula.")
     @Valid
+    @ManyToOne
     private Cotacao cotacao;
 
     @NotNull(message = "A lista de serviços não pode ser nula.")
     @Size(min = 1, message = "A lista de serviços deve conter pelo menos um serviço.")
+    @ManyToMany
     private List<Servico> servicos;
 
     private boolean status;
@@ -41,46 +51,6 @@ public class PlanoSeguro {
         this.status = status;
         //Calculando valor total toda vez que o objeto for acionado
         calcularValorTotal();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Cotacao getCotacao() {
-        return cotacao;
-    }
-
-    public void setCotacao(Cotacao cotacao) {
-        this.cotacao = cotacao;
-    }
-    
-    public List<Servico> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<Servico> servicos) {
-        this.servicos = servicos;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     private double calcularValorTotal() {

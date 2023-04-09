@@ -12,8 +12,15 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-
+@Data
+@EqualsAndHashCode(of = "id")
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Carro {
     
@@ -32,46 +39,9 @@ public class Carro {
     @Temporal(TemporalType.DATE)
     private LocalDate ano;
 
-  
-    public Carro(){}
-    
-    public Carro(Long id, String placa, String modelo, LocalDate ano) {
-        this.id = id;
+    public Carro(String placa, String modelo, LocalDate ano){
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public LocalDate getAno() {
-        return ano;
-    }
-
-    public void setAno(LocalDate ano) {
-        this.ano = ano;
-    }
-
 }
