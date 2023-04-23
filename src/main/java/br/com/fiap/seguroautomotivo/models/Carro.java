@@ -56,7 +56,7 @@ public class Carro{
                 linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
                 linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
                 linkTo(methodOn(CarroController.class).index(null,Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(.class).(this.().getId())).withRel("")                               
+                linkTo(methodOn(.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")                               
         );
     }
 }

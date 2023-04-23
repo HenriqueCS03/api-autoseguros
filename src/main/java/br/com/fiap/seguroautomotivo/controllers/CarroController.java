@@ -29,11 +29,15 @@ public class CarroController {
     @Autowired
     CarroRepository carroRepository;
 
+    @Autowired
+    PagedResourcesAssembler<Object> assembler;
+
     @GetMapping
-    public Page<Carro> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
-        if(modelo == null) 
-            return carroRepository.findAll(pageable);
-        return carroRepository.pesquisarPorModelo(modelo,pageable); 
+    public Page<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
+        Page<Carro> carros = (modelo == nul)?
+            carroRepository.findAll(pageable) 
+            carroRepository.pesquisarPorModelo(modelo, pageable);
+        return assembler.toModel(carros.map(Carro::toEntityModel)); 
     }
 
     @PostMapping
@@ -42,47 +46,55 @@ public class CarroController {
         //     return ResponseEntity.badRequest().body(new RestValidationError("erro de validação"));
         // }
         carroRepository.save(carro);
-        return ResponseEntity.status(HttpStatus.CREATED).body(carro);
+        return ResponseEntity
+                .created(carro.toEntityModel().getRequiredLink("self").toUri())
+                .body(carro.toEntityModel());
     }
 
     @GetMapping("/{id}")
     public EntityModel<Carro> encontraCarroPorId(@PathVariable Long id){
         
-        var carroEncontrado = carroRepository.findById(id);
+        // var carroEncontrado = carroRepository.findById(id);
 
-        if (carroEncontrado.isEmpty())
-            return ResponseEntity.notFound().build();
+        // if (carroEncontrado.isEmpty())
+        //     return ResponseEntity.notFound().build();
 
-        return carroEncontrado.EntityModel();
+        return getCarro(id).EntityModel();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Carro> atualizarCarro(@Valid @PathVariable Long id, @RequestBody Carro carro) {
+    public EntityModel<Carro> atualizarCarro(@Valid @PathVariable Long id, @RequestBody Carro carro) {
 
-        var carroEncontrado = carroRepository.findById(id);
+        // var carroEncontrado = carroRepository.findById(id);
 
-        if (carroEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
+        // if (carroEncontrado.isEmpty()) {
+        //     return ResponseEntity.notFound().build();
+        // }
+        getCarro(id);
         carro.setId(id);
         carroRepository.save(carro);
         
 
-        return ResponseEntity.ok(carro);
+        return carro.toEntityModel();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Carro> removerCarro(@PathVariable Long id) {
         
-       var carroEncontrado = carroRepository.findById(id);
+       var carroEncontrado = getCarro(id);
         
-       if(carroEncontrado.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
+    //    if(carroEncontrado.isEmpty()){
+    //         return ResponseEntity.notFound().build();
+    //     }
 
-        carroRepository.delete(carroEncontrado.get());
+
+        carroRepository.delete(carroEncontrado);
 
         return ResponseEntity.noContent().build();
+    }
+    
+    private Carro getCarro(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RestNotFoundException("carro não encontrado"));
     }
 }
