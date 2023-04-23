@@ -46,14 +46,14 @@ public class CarroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Carro> encontraCarroPorId(@PathVariable Long id){
+    public EntityModel<Carro> encontraCarroPorId(@PathVariable Long id){
         
         var carroEncontrado = carroRepository.findById(id);
 
         if (carroEncontrado.isEmpty())
             return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(carroEncontrado.get());
+        return carroEncontrado.EntityModel();
     }
 
     @PutMapping("/{id}")

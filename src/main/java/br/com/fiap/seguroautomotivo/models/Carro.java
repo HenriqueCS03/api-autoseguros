@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-public class Carro {
+public class Carro{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +41,22 @@ public class Carro {
     @Temporal(TemporalType.DATE)
     private LocalDate ano;
 
+    @OnetoMany
+    private Cotacao cotacao;
+
     public Carro(String placa, String modelo, LocalDate ano){
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
+    }
+
+    public EntityModel<Carro> EntityModel(){
+        return EntityModel.of(
+                this,
+                linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
+                linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
+                linkTo(methodOn(CarroController.class).index(null,Pageable.unpaged())).withRel("all"),
+                linkTo(methodOn(.class).(this.().getId())).withRel("")                               
+        );
     }
 }
