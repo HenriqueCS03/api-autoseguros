@@ -28,13 +28,14 @@ public class DatabaseSeeder implements CommandLineRunner{
             new Carro("DEF-5678", "Volkswagen Jetta",LocalDate.parse("2022-01-01"))
         ));
         
-        servicoRepository.saveAll(List.of(
-             //Criar um objeto com builder
-             Servico.builder().servicosNome("Roubo e Furto").valor(450).build(),
-             Servico.builder().servicosNome("Eventos Naturais").valor(600).build(),
-             Servico.builder().servicosNome("Incêndio").valor(800).build(),
-             Servico.builder().servicosNome("Colisão(Batida)").valor(1000).build(),
-             Servico.builder().servicosNome("Colisão(Perda Total)").valor(1500).build()
-         ));
+		/*
+		 * servicoRepository.saveAll(List.of( //Criar um objeto com builder
+		 * Servico.builder().servicosNome("Roubo e Furto").valor(450).build(),
+		 * Servico.builder().servicosNome("Eventos Naturais").valor(600).build(),
+		 * Servico.builder().servicosNome("Incêndio").valor(800).build(),
+		 * Servico.builder().servicosNome("Colisão(Batida)").valor(1000).build(),
+		 * Servico.builder().servicosNome("Colisão(Perda Total)").valor(1500).build()
+		 * ));
+		 */
     }
 }

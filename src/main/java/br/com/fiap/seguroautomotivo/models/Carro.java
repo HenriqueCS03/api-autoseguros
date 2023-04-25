@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.EntityModel;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -54,10 +52,19 @@ public class Carro{
     @OneToMany
     private Cotacao cotacao;
     
-    public Long getId() {
+	public Carro(
+			@NotBlank(message = "A placa tem que ser preenchido.") @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A placa deve estar no formato AAA-1234") String placa,
+			@NotBlank(message = "O modelo tem que ser preenchido.") String modelo,
+			@NotNull(message = "A data não pode ser nula") LocalDate ano) {
+		this.placa = placa;
+		this.modelo = modelo;
+		this.ano = ano;
+	}
+
+	public Long getId() {
 		return id;
 	}
-    
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -68,7 +75,7 @@ public class Carro{
                 linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
                 linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
                 linkTo(methodOn(CarroController.class).todosOsCarros(null,Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")  
+                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getId())).withRel("cotacao")  
         );
     }
 }
