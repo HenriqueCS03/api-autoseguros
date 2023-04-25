@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.seguroautomotivo.exception.RestNotFoundException;
+import br.com.fiap.seguroautomotivo.models.Carro;
 import br.com.fiap.seguroautomotivo.models.Cotacao;
 import br.com.fiap.seguroautomotivo.repository.CotacaoRepository;
 import jakarta.validation.Valid;
@@ -72,5 +74,10 @@ public class CotacaoController {
         cotacaoRepository.delete(cotacaoEncontrado.get());
 
         return ResponseEntity.noContent().build();
+    }
+    
+    private Cotacao getCotacao(Long id) {
+        return cotacaoRepository.findById(id)
+                .orElseThrow(() -> new RestNotFoundException("cotação não encontrado"));
     }
 }

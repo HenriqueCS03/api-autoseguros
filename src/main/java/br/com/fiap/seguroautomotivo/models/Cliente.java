@@ -33,4 +33,12 @@ public class Cliente {
     @NotBlank(message = "A senha tem que ser preenchida.")
     private String senha;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

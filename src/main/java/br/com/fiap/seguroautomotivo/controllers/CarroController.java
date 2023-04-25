@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.seguroautomotivo.exception.RestNotFoundException;
 import br.com.fiap.seguroautomotivo.models.Carro;
 import br.com.fiap.seguroautomotivo.repository.CarroRepository;
 import jakarta.validation.Valid;
@@ -33,11 +36,11 @@ public class CarroController {
     PagedResourcesAssembler<Object> assembler;
 
     @GetMapping
-    public Page<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
-        Page<Carro> carros = (modelo == nul)?
-            carroRepository.findAll(pageable) 
+    public PagedModel<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
+        Page<Carro> carros = (modelo == null)?
+            carroRepository.findAll(pageable): 
             carroRepository.pesquisarPorModelo(modelo, pageable);
-        return assembler.toModel(carros.map(Carro::toEntityModel)); 
+        return assembler.toModel(carros.map(Carro::toEntityModel));
     }
 
     @PostMapping
@@ -59,7 +62,7 @@ public class CarroController {
         // if (carroEncontrado.isEmpty())
         //     return ResponseEntity.notFound().build();
 
-        return getCarro(id).EntityModel();
+        return getCarro(id).toEntityModel();
     }
 
     @PutMapping("/{id}")
@@ -94,7 +97,7 @@ public class CarroController {
     }
     
     private Carro getCarro(Long id) {
-        return repository.findById(id)
+        return carroRepository.findById(id)
                 .orElseThrow(() -> new RestNotFoundException("carro não encontrado"));
     }
 }

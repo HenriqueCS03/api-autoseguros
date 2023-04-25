@@ -2,13 +2,23 @@ package br.com.fiap.seguroautomotivo.models;
 
 import java.time.LocalDate;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.EntityModel;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import br.com.fiap.seguroautomotivo.controllers.CarroController;
+import br.com.fiap.seguroautomotivo.controllers.CotacaoController;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -41,22 +51,24 @@ public class Carro{
     @Temporal(TemporalType.DATE)
     private LocalDate ano;
 
-    @OnetoMany
+    @OneToMany
     private Cotacao cotacao;
+    
+    public Long getId() {
+		return id;
+	}
+    
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Carro(String placa, String modelo, LocalDate ano){
-        this.placa = placa;
-        this.modelo = modelo;
-        this.ano = ano;
-    }
-
-    public EntityModel<Carro> EntityModel(){
+	public EntityModel<Carro>  toEntityModel(){
         return EntityModel.of(
-                this,
+        		this,
                 linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
                 linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
-                linkTo(methodOn(CarroController.class).index(null,Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")                               
+                linkTo(methodOn(CarroController.class).todosOsCarros(null,Pageable.unpaged())).withRel("all"),
+                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")  
         );
     }
 }

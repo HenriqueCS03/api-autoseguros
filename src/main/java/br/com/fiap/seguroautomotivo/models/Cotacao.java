@@ -42,5 +42,13 @@ public class Cotacao {
     private Endereco endereco;
 
     private boolean idadeMinima;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
      
 }

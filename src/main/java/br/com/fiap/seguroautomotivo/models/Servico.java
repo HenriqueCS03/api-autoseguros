@@ -33,4 +33,20 @@ public class Servico {
     @NotNull(message = "O valor do serviço não pode ser nulo.")
     private double valor;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
 }

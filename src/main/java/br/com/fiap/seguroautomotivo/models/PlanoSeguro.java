@@ -52,8 +52,18 @@ public class PlanoSeguro {
         //Calculando valor total toda vez que o objeto for acionado
         calcularValorTotal();
     }
+  
+    public Long getId() {
+		return id;
+	}
 
-    private double calcularValorTotal() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+	private double calcularValorTotal() {
         for (Servico servico : servicos) {
             valorTotal += servico.getValor();
         }
