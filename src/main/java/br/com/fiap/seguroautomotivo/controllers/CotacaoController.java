@@ -52,11 +52,12 @@ public class CotacaoController {
     @PutMapping("/{id}")
     public ResponseEntity<Cotacao> atualizarCotacao(@Valid @PathVariable Long id, @RequestBody Cotacao cotacao) {
 
-        var cotacaoEncontrado = cotacaoRepository.findById(id);
+        // var cotacaoEncontrado = cotacaoRepository.findById(id);
 
-        if (cotacaoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        // if (cotacaoEncontrado.isEmpty()) {
+        //     return ResponseEntity.notFound().build();
+        // }
+        getCotacao(id);
         cotacao.setId(id);
         cotacaoRepository.save(cotacao);
 
@@ -66,11 +67,11 @@ public class CotacaoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Cotacao> removerCotacao(@PathVariable Long id) {
         
-       var cotacaoEncontrado = cotacaoRepository.findById(id);
-        if(cotacaoEncontrado.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        cotacaoRepository.delete(cotacaoEncontrado.get());
+    //    var cotacaoEncontrado = cotacaoRepository.findById(id);
+    //     if(cotacaoEncontrado.isEmpty()){
+    //         return ResponseEntity.notFound().build();
+    //     }
+        cotacaoRepository.delete(getCotacao(id));
 
         return ResponseEntity.noContent().build();
     }
