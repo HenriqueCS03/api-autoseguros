@@ -1,6 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,13 +38,19 @@ public class CarroController {
     @Autowired
     PagedResourcesAssembler<Object> assembler;
 
-    @GetMapping
-    public PagedModel<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
-        Page<Carro> carros = (modelo == null)?
-            carroRepository.findAll(pageable): 
-            carroRepository.pesquisarPorModelo(modelo, pageable);
-        return assembler.toModel(carros.map(Carro::toEntityModel));
+    @GetMapping()
+    public List<Carro> todosOsCarros() {
+       return carroRepository.findAll();
     }
+
+
+    // @GetMapping
+    // public PagedModel<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {
+    //     Page<Carro> carros = (modelo == null)?
+    //         carroRepository.findAll(pageable): 
+    //         carroRepository.pesquisarPorModelo(modelo, pageable);
+    //     return assembler.toModel(carros.map(Carro::toEntityModel));
+    // }
 
     @PostMapping
     public ResponseEntity<Object> cadastrarCarro(@RequestBody @Valid Carro carro, BindingResult result){
@@ -50,23 +59,22 @@ public class CarroController {
         // }
         carroRepository.save(carro);
         return ResponseEntity
-                .created(carro.toEntityModel().getRequiredLink("self").toUri())
-                .body(carro.toEntityModel());
+                .status(HttpStatus.CREATED).body(carro);
     }
 
     @GetMapping("/{id}")
-    public EntityModel<Carro> encontraCarroPorId(@PathVariable Long id){
+    public ResponseEntity<Carro> encontraCarroPorId(@PathVariable Long id){
         
-        // var carroEncontrado = carroRepository.findById(id);
+         var carroEncontrado = carroRepository.findById(id);
 
-        // if (carroEncontrado.isEmpty())
-        //     return ResponseEntity.notFound().build();
+         if (carroEncontrado.isEmpty())
+             return ResponseEntity.notFound().build();
 
-        return getCarro(id).toEntityModel();
+        return ResponseEntity.ok(carroEncontrado.get());
     }
 
     @PutMapping("/{id}")
-    public EntityModel<Carro> atualizarCarro(@Valid @PathVariable Long id, @RequestBody Carro carro) {
+    public ResponseEntity<Carro> atualizarCarro(@Valid @PathVariable Long id, @RequestBody Carro carro) {
 
         // var carroEncontrado = carroRepository.findById(id);
 
@@ -78,7 +86,7 @@ public class CarroController {
         carroRepository.save(carro);
         
 
-        return carro.toEntityModel();
+        return  ResponseEntity.ok(carro);
     }
 
     @DeleteMapping("/{id}")

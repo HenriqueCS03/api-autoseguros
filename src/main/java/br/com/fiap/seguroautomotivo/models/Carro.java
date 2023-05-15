@@ -51,15 +51,6 @@ public class Carro{
     @ManyToOne
     private Cotacao cotacao;
     
-	public Carro(
-			@NotBlank(message = "A placa tem que ser preenchido.") @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A placa deve estar no formato AAA-1234") String placa,
-			@NotBlank(message = "O modelo tem que ser preenchido.") String modelo,
-			@NotNull(message = "A data não pode ser nula") LocalDate ano) {
-		this.placa = placa;
-		this.modelo = modelo;
-		this.ano = ano;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -68,13 +59,13 @@ public class Carro{
 		this.id = id;
 	}
 
-	public EntityModel<Carro>  toEntityModel(){
-        return EntityModel.of(
-        		this,
-                linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
-                linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
-                linkTo(methodOn(CarroController.class).todosOsCarros(null,Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")  
-        );
-    }
+	// public EntityModel<Carro>  toEntityModel(){
+    //     return EntityModel.of(
+    //     		this,
+    //             linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
+    //             linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
+    //             linkTo(methodOn(CarroController.class).todosOsCarros(null,Pageable.unpaged())).withRel("all"),
+    //             linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")  
+    //     );
+    // }
 }

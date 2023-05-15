@@ -8,6 +8,6 @@ import br.com.fiap.seguroautomotivo.models.Carro;
 
 public interface CarroRepository extends JpaRepository<Carro,Long>{
     
-    Page<Carro> pesquisarPorModelo(String modelo, Pageable pageable);
+    // Page<Carro> pesquisarPorModelo(String modelo, Pageable pageable);
 
 }

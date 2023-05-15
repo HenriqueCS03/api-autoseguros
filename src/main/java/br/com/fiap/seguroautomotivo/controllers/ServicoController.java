@@ -1,6 +1,8 @@
 package br.com.fiap.seguroautomotivo.controllers;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,12 +30,17 @@ public class ServicoController {
     @Autowired
     ServicoRepository servicoRepository;
 
-    @GetMapping
-    public Page<Servico> todosOsCarros(@RequestParam(required = false) String servicosNome, @PageableDefault(size = 5) Pageable pageable) {
-        if(servicosNome == null) 
-            return servicoRepository.findAll(pageable);
-        return servicoRepository.pesquisarPorNomeServico(servicosNome,pageable); 
+    @GetMapping()
+    public List<Servico> todosOsServicos() {
+       return servicoRepository.findAll();
     }
+
+    // @GetMapping
+    // public Page<Servico> todosOsCarros(@RequestParam(required = false) String servicosNome, @PageableDefault(size = 5) Pageable pageable) {
+    //     if(servicosNome == null) 
+    //         return servicoRepository.findAll(pageable);
+    //     return servicoRepository.pesquisarPorNomeServico(servicosNome,pageable); 
+    // }
 
     @PostMapping
     public ResponseEntity<Servico> cadastrarServico(@Valid @RequestBody Servico servico){
