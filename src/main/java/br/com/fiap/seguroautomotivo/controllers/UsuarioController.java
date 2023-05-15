@@ -12,33 +12,38 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.seguroautomotivo.models.Credencial;
 import br.com.fiap.seguroautomotivo.models.Usuario;
 import br.com.fiap.seguroautomotivo.repository.UsuarioRepository;
+import br.com.fiap.seguroautomotivo.service.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
 public class UsuarioController {
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	AuthenticationManager manager;
-	
-	@Autowired
-	PasswordEncoder encoder;
-	
-	@PostMapping("/api/registrar")
-	public ResponseEntity<Usuario> registrar(@RequestBody @Valid Usuario usuario) {
-		
-		usuario.setSenha(encoder.encode(usuario.getSenha()));
-        usuarioRepository.save(usuario);
+    UsuarioRepository repository;
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    PasswordEncoder encoder;
+
+    @Autowired
+    TokenService tokenService;
+
+    @PostMapping("/api/registrar")
+    public ResponseEntity<Usuario> registrar(@RequestBody @Valid Usuario usuario){
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        repository.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
-	}
-	
-	@PostMapping("/api/login")
-	public ResponseEntity<Object> logar(@RequestBody @Valid Credencial credencial) {
-		
-		manager.authenticate(credencial.toAuthentication());
-		return ResponseEntity.ok().build();
-	}
+    }
+
+    @PostMapping("/api/login")
+    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial){
+        manager.authenticate(credencial.toAuthentication());
+
+        var token = tokenService.generateToken(credencial);
+        return ResponseEntity.ok(token);
+    }
+
 	
 }

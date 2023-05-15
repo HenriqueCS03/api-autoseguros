@@ -13,7 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
@@ -48,7 +48,7 @@ public class Carro{
     @Temporal(TemporalType.DATE)
     private LocalDate ano;
 
-    @OneToMany
+    @ManyToOne
     private Cotacao cotacao;
     
 	public Carro(
@@ -74,7 +74,7 @@ public class Carro{
                 linkTo(methodOn(CarroController.class).encontraCarroPorId(id)).withSelfRel(),
                 linkTo(methodOn(CarroController.class).removerCarro(id)).withRel("delete"),
                 linkTo(methodOn(CarroController.class).todosOsCarros(null,Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getId())).withRel("cotacao")  
+                linkTo(methodOn(CotacaoController.class).encontraCotacaoPorId(this.getCotacao().getId())).withRel("cotacao")  
         );
     }
 }
