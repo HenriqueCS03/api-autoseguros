@@ -1,5 +1,6 @@
 package br.com.fiap.seguroautomotivo.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -7,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -28,13 +29,13 @@ public class PlanoSeguro {
 
     @NotNull(message = "A cotação não pode ser nula.")
     @Valid
-    @ManyToOne
+    @OneToOne
     private Cotacao cotacao;
 
     @NotNull(message = "A lista de serviços não pode ser nula.")
     @Size(min = 1, message = "A lista de serviços deve conter pelo menos um serviço.")
     @ManyToMany
-    private List<Servico> servicos;
+    private List<Servico> servicos = new ArrayList<Servico>();
 
     private boolean status;
 

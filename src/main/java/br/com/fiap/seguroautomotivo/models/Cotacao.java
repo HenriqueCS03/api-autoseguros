@@ -1,5 +1,8 @@
 package br.com.fiap.seguroautomotivo.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,8 +31,13 @@ public class Cotacao {
     @NotNull(message = "O carro não pode ser nulo")
     @Valid
     @OneToMany
-    private Carro carro;
+    private List<Carro> carros = new ArrayList<Carro>();
 
+    @OneToOne
+    private PlanoSeguro planoSeguro;
+
+    @OneToOne
+    private Cliente cliente;
 
     @NotBlank(message = "O uso tem que ser preenchido.")
     private String usoDoCarro;
