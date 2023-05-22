@@ -26,13 +26,12 @@ public class Usuario implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
 	private String email;
 	private String senha;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @Service
 public class TokenService {
-    
+
     @Autowired
     UsuarioRepository usuarioRepository;
 
@@ -40,7 +40,7 @@ public class TokenService {
     public Usuario getValidateUser(String token) {
         Algorithm alg = Algorithm.HMAC256(secret);
         var email = JWT.require(alg)
-                    .withIssuer("MeuJulius")
+                    .withIssuer("SeguroAutomotivo")
                     .build()
                     .verify(token)
                     .getSubject()
@@ -49,4 +49,7 @@ public class TokenService {
         return usuarioRepository.findByEmail(email)
                     .orElseThrow(() -> new JWTVerificationException("Usuario invalido"));
     }
+
+
+    
 }

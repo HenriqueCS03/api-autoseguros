@@ -38,11 +38,10 @@ public class CarroController {
     @Autowired
     PagedResourcesAssembler<Object> assembler;
 
-    @GetMapping()
+    @GetMapping
     public List<Carro> todosOsCarros() {
        return carroRepository.findAll();
     }
-
 
     // @GetMapping
     // public PagedModel<EntityModel<Object>> todosOsCarros(@RequestParam(required = false) String modelo, @PageableDefault(size = 5) Pageable pageable) {

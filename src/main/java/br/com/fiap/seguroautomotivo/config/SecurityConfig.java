@@ -13,37 +13,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 public class SecurityConfig {
 
-	@Autowired
+    @Autowired
     AuthorizationFilter authorizationFilter;
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		return http
-                .authorizeHttpRequests()
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        return http
+            .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**"). permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .formLogin().disable()
             .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-	}
-	
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
-		
-		return config.getAuthenticationManager();
-	}
-	
-	@Bean
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    
 }

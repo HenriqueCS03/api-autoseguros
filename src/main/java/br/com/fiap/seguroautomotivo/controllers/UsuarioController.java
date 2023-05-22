@@ -13,9 +13,11 @@ import br.com.fiap.seguroautomotivo.models.Credencial;
 import br.com.fiap.seguroautomotivo.models.Usuario;
 import br.com.fiap.seguroautomotivo.repository.UsuarioRepository;
 import br.com.fiap.seguroautomotivo.service.TokenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
+@Tag(name = "auth")
 public class UsuarioController {
 
 	@Autowired
