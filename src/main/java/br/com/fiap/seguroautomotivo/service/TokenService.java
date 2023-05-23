@@ -30,7 +30,7 @@ public class TokenService {
         Algorithm alg = Algorithm.HMAC256(secret);
         String token = JWT.create()
                     .withSubject(credencial.email())
-                    .withIssuer("MeuJulius")
+                    .withIssuer("SeguroAutomotivo")
                     .withExpiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
                     .sign(alg)
                     ;
